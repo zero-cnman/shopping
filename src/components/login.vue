@@ -52,7 +52,7 @@ export default {
             this.$router.push("/home");
           })
           .catch(err => {
-            console.log("服务器繁忙");
+            console.log("服务器繁忙,请稍后重试");
           });
       });
     }
