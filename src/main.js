@@ -3,6 +3,7 @@ import App from './App.vue'
 import axios from 'axios'
 import router from './router'
 import './plugins/element.js'
+import moment from 'moment'
 
 
 
@@ -19,3 +20,5 @@ new Vue({
   router,
   render: h => h(App)
 }).$mount('#app')
+
+Vue.prototype.$moment = moment

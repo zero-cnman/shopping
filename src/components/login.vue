@@ -3,10 +3,15 @@
     <div class="loginBox">
       <el-form ref="loginForm" :model="loginForm" label-width="80px" :rules="rules">
         <el-form-item label="用户名" prop="username">
-          <el-input v-model="loginForm.username" clearable @keyup.enter="keyuplogin('loginForm')"></el-input>
+          <el-input v-model="loginForm.username" clearable></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input v-model="loginForm.password" clearable show-password></el-input>
+          <el-input
+            v-model="loginForm.password"
+            clearable
+            show-password
+            @keyup.enter.native="login('loginForm')"
+          ></el-input>
         </el-form-item>
         <el-form-item class="loginButton">
           <el-button type="primary" @click="login('loginForm')">登录</el-button>

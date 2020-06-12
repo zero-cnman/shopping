@@ -6,6 +6,8 @@ import users from '../components/users.vue'
 import roles from '../components/roles.vue'
 import categories from '../components/shopping/categories.vue'
 import params from '../components/shopping/params.vue'
+import goods from '../components/shopping/goods.vue'
+
 
 
 
@@ -39,6 +41,10 @@ const routes = [{
     path: '/params',
     name: 'params',
     component: params
+  }, {
+    path: '/goods',
+    name: 'goods',
+    component: goods
   }, ]
 }, ]
 
