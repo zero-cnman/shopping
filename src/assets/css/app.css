@@ -7,3 +7,7 @@ html {
     padding: 0;
     /* overflow-y: hidden */
 }
+
+.ql-blank {
+    min-height: 280px;
+}

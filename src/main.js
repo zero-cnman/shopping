@@ -4,7 +4,13 @@ import axios from 'axios'
 import router from './router'
 import './plugins/element.js'
 import moment from 'moment'
+import VueQuillEditor from 'vue-quill-editor'
 
+import 'quill/dist/quill.core.css' // import styles
+import 'quill/dist/quill.snow.css' // for snow theme
+import 'quill/dist/quill.bubble.css' // for bubble theme
+
+Vue.use(VueQuillEditor)
 
 
 //挂载axios，$http

@@ -19,6 +19,7 @@
     "axios": "^0.19.2",
     "moment": "^2.26.0",
     "vue-cli-plugin-element": "^1.0.1",
+    "vue-quill-editor": "^3.0.6",
     "vue-template-compiler": "^2.6.11"
   }
 }
