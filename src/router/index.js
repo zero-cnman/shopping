@@ -7,6 +7,8 @@ import roles from '../components/roles.vue'
 import categories from '../components/shopping/categories.vue'
 import params from '../components/shopping/params.vue'
 import goods from '../components/shopping/goods.vue'
+import orders from '../components/shopping/orders.vue'
+import reports from '../components/shopping/reports.vue'
 
 
 
@@ -45,6 +47,14 @@ const routes = [{
     path: '/goods',
     name: 'goods',
     component: goods
+  }, {
+    path: '/orders',
+    name: 'orders',
+    component: orders
+  }, {
+    path: '/reports',
+    name: 'reports',
+    component: reports
   }, ]
 }, ]
 

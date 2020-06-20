@@ -136,7 +136,7 @@
           </el-tab-pane>
           <el-tab-pane label="商品内容" name="4">
             <quill-editor v-model="shoppingForm.goods_introduce"></quill-editor>
-            <el-button type="primary" @click="submitaddsForm">新增商品</el-button>
+            <el-button type="primary" @click="submitaddsForm" class="butadd">新增商品</el-button>
           </el-tab-pane>
         </el-tabs>
       </el-form>
@@ -400,6 +400,7 @@ export default {
       this.$confirm("确认关闭？")
         .then(async _ => {
           console.log(val);
+
           const { data: res } = await this.$http.delete(
             `/goods/${val.goods_id}`
           );
@@ -441,4 +442,8 @@ p {
   margin-block-end: 5px !important;
   margin-block-start: 5px !important;
 } */
+
+.butadd {
+  margin-top: 20px;
+}
 </style>

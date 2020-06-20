@@ -255,7 +255,7 @@ export default {
       addManyatrbForm: {
         attr_vals: ""
       },
-      shoppingrules: {
+      addrules: {
         attr_vals: [
           {
             required: true,
