@@ -95,7 +95,107 @@
                 <el-cascader
                   v-model="shoppingForm.category"
                   :options="tableData"
-                  :props="{ expandTrigger: 'hover',children:'children',label:'cat_name',value:'cat_id'}"
+                  :props="{ expandTrigger: 'hover', children: 'children',label: 'cat_name',value: 'cat_id'}"
+                  @change="shoppingChange"
+                ></el-cascader>
+              </div>
+            </el-form-item>
+          </el-tab-pane>
+
+          <!-- 商品参数页签 -->
+          <el-tab-pane label="商品参数" name="1">
+            <el-form-item v-for="(item,index) in manyAttributesData" :key="index" class="tanle">
+              <p>{{item.attr_name}}</p>
+              <el-checkbox-group v-model="item.attr_vals">
+                <el-checkbox :label="iten" v-for="(iten,index) in item.attr_vals" :key="index"></el-checkbox>
+              </el-checkbox-group>
+            </el-form-item>
+          </el-tab-pane>
+          <!-- 商品属性页签 -->
+          <el-tab-pane label="商品属性" name="2">
+            <el-form-item v-for="(item,index) in onlyAttributesData" :key="index" class="tanle">
+              <p>{{item.attr_name}}</p>
+              <el-checkbox-group v-model="item.attr_vals">
+                <el-checkbox :label="iten" v-for="(iten,index) in item.attr_vals" :key="index"></el-checkbox>
+              </el-checkbox-group>
+            </el-form-item>
+          </el-tab-pane>
+          <el-tab-pane label="商品图片" name="3">
+            <el-upload
+              class="upload-demo"
+              :action="uploadURL"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :on-success="uploadpic"
+              :headers="uphearder"
+              list-type="picture"
+            >
+              <el-button size="small" type="primary">点击上传</el-button>
+              <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+            </el-upload>
+          </el-tab-pane>
+          <el-tab-pane label="商品内容" name="4">
+            <quill-editor v-model="shoppingForm.goods_introduce"></quill-editor>
+            <el-button type="primary" @click="submitaddsForm" class="butadd">新增商品</el-button>
+          </el-tab-pane>
+        </el-tabs>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogRaddshopping = false">取 消</el-button>
+      </div>
+    </el-dialog>
+
+    <!-- 1 -->
+    <!-- 新增商品方式二的dialog -->
+    <el-dialog
+      title="收货地址"
+      :visible.sync="dialogRaddshoppingtwo"
+      width="70%"
+      @close="shoppingClose"
+    >
+      <el-steps :space="200" :active="tabname-0" finish-status="success" align-center>
+        <el-step title="基本信息"></el-step>
+        <el-step title="商品参数"></el-step>
+        <el-step title="商品属性"></el-step>
+        <el-step title="商品图片"></el-step>
+        <el-step title="商品内容"></el-step>
+        <el-step title="完成"></el-step>
+      </el-steps>
+      <el-form
+        :model="shoppingForm"
+        :rules="shoppingrules"
+        ref="addOnlyatrbForm"
+        label-width="100px"
+        class="demo-ruleForm"
+        style="margin-top:30px"
+      >
+        <!-- 左侧tabs -->
+        <el-tabs
+          tab-position="left"
+          style="margin-top:30px"
+          :before-leave="beforeTab"
+          v-model="tabname"
+          @tab-click="parameterClick"
+        >
+          <el-tab-pane label="基本信息" name="0">
+            <el-form-item label="商品名称" prop="goods_name">
+              <el-input v-model="shoppingForm.goods_name"></el-input>
+            </el-form-item>
+            <el-form-item label="商品价格" prop="goods_price">
+              <el-input v-model="shoppingForm.goods_price"></el-input>
+            </el-form-item>
+            <el-form-item label="商品重量" prop="goods_weight">
+              <el-input v-model="shoppingForm.goods_weight"></el-input>
+            </el-form-item>
+            <el-form-item label="商品数量" prop="goods_number">
+              <el-input v-model="shoppingForm.goods_number"></el-input>
+            </el-form-item>
+            <el-form-item label="商品分类">
+              <div class="block">
+                <el-cascader
+                  v-model="shoppingForm.category"
+                  :options="tableData"
+                  :props="{ expandTrigger: 'hover', children: 'children',label: 'cat_name',value: 'cat_id'}"
                   @change="shoppingChange"
                 ></el-cascader>
               </div>
@@ -156,7 +256,7 @@ export default {
       pagesize: 2,
       total: 100,
       dialogRaddshopping: false,
-
+      dialogRaddshoppingtwo: false,
       shoppingForm: {
         goods_name: "",
         goods_price: "",

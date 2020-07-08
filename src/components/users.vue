@@ -45,6 +45,37 @@
           <el-button type="primary" @click="dialogAddUsers">确 定</el-button>
         </span>
       </el-dialog>
+
+      <!-- 修改用户的dialog -->
+      <el-dialog
+        title="新增用户"
+        :visible.sync="dialogamendVisible"
+        width="40%"
+        :before-close="handleamendClose"
+      >
+        <el-form
+          :model="usersamendForm"
+          :rules="usersRules"
+          ref="usersamendForm"
+          label-width="100px"
+          class="demo-ruleForm"
+        >
+          <el-form-item label="用户名称" prop="username" name="username">
+            <el-input v-model="usersamendForm.username" :disabled="true"></el-input>
+          </el-form-item>
+
+          <el-form-item label="邮箱" prop="email" name="email">
+            <el-input v-model="usersamendForm.email"></el-input>
+          </el-form-item>
+          <el-form-item label="手机号" prop="mobile" name="mobile">
+            <el-input v-model="usersamendForm.mobile"></el-input>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="dialogamendClose">取 消</el-button>
+          <el-button type="primary" @click="dialogAmendUsers">确 定</el-button>
+        </span>
+      </el-dialog>
       <!-- table数据 -->
       <el-table :data="usersData" stripe style="width: 100%">
         <el-table-column type="index" width="50"></el-table-column>
@@ -65,7 +96,12 @@
 
         <el-table-column label="操作" width="400">
           <template v-slot="scope">
-            <el-button type="primary" icon="el-icon-edit" size="mini">编辑</el-button>
+            <el-button
+              type="primary"
+              icon="el-icon-edit"
+              size="mini"
+              @click="amendusers(scope.row)"
+            >编辑</el-button>
             <el-button
               type="info"
               icon="el-icon-share"
@@ -179,7 +215,7 @@ export default {
       usersRules: {
         username: [
           { required: true, message: "请输入用户名", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
+          { min: 3, max: 10, message: "长度在 3 到 5 个字符", trigger: "blur" }
         ],
         password: [
           { required: true, message: "请输入密码", trigger: "blur" },
@@ -189,7 +225,14 @@ export default {
         mobile: [{ validator: mobilevalidation, trigger: "blur" }]
       },
       rolesData: [],
-      queryRolesData: ""
+      queryRolesData: "",
+      dialogamendVisible: false,
+      usersamendForm: {
+        username: "",
+        email: "",
+        mobile: "",
+        id: ""
+      }
     };
   },
   created() {
@@ -262,6 +305,7 @@ export default {
         })
         .catch(_ => {});
     },
+
     /*  dialog关闭取消按钮的提示 */
     dialogClose() {
       this.dialogVisible = false;
@@ -283,28 +327,6 @@ export default {
 
         this.$refs["usersForm"].resetFields();
         this.acquiresUsers();
-        // console.log(this.usersForm.username);
-
-        // await this.$http({
-        //   url: "users",
-        //   method: "post",
-        //   params: this.usersForm,
-        //   contentTypeString: "application/Json"
-        // })
-        //   .then(res => {
-        //     console.log(this.usersForm.username);
-        //     console.log(res);
-
-        //     if (res.data.meta.status !== 201)
-        //       return this.$message.error("数据新增失败，请重新尝试");
-        //     this.$message.success("数据新增成功");
-        //     this.dialogVisible = false;
-        //     this.$refs["usersForm"].resetFields();
-        //     this.acquiresUsers();
-        //   })
-        //   .catch(err => {
-        //     this.$message.error("服务器繁忙,修改状态失败，请稍后重试");
-        //   });
       });
     },
     /* 删除用户 */
@@ -390,6 +412,43 @@ export default {
           this.acquiresUsers();
         }
       }
+    },
+    handleamendClose() {
+      this.$confirm("确认关闭？")
+        .then(_ => {
+          this.$refs["usersamendForm"].resetFields();
+          this.dialogamendVisible = false;
+        })
+        .catch(_ => {});
+    },
+    /* 修改用户 */
+    amendusers(val) {
+      console.log(val);
+      this.dialogamendVisible = true;
+      this.usersamendForm.username = val.username;
+      this.usersamendForm.email = val.email;
+      this.usersamendForm.mobile = val.mobile;
+      this.usersamendForm.id = val.id;
+    },
+    dialogamendClose() {
+      this.$refs["usersamendForm"].resetFields();
+      this.dialogamendVisible = false;
+    },
+    dialogAmendUsers() {
+      this.$refs["usersamendForm"].validate(async valid => {
+        if (!valid) return false;
+        const { data: res } = await this.$http.put(
+          `users/${this.usersamendForm.id}`,
+          this.usersamendForm
+        );
+        if (res.meta.status !== 200) {
+          return this.$message.error("修改用户信息失败，请重试");
+        }
+        this.$message.success("修改用户信息成功");
+        this.$refs["usersamendForm"].resetFields();
+        this.dialogamendVisible = false;
+        this.acquiresUsers();
+      });
     }
   }
 };

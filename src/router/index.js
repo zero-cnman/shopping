@@ -9,6 +9,8 @@ import params from '../components/shopping/params.vue'
 import goods from '../components/shopping/goods.vue'
 import orders from '../components/shopping/orders.vue'
 import reports from '../components/shopping/reports.vue'
+import rights from '../components/rights.vue'
+
 
 
 
@@ -55,12 +57,22 @@ const routes = [{
     path: '/reports',
     name: 'reports',
     component: reports
+  }, {
+    path: '/rights',
+    name: 'rights',
+    component: rights
   }, ]
 }, ]
 
 const router = new VueRouter({
   routes
 })
+
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 router.beforeEach((to, from, next) => {
   const seaaions = window.sessionStorage.getItem('token')
   if (to.path === '/login') return next();

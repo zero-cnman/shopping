@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\config",
+    "\\services",
+    "\\test",
+    "\\test\\api",
+    "\\test\\api\\private",
+    "\\test\\api\\private\\v1",
+    "\\test\\configs"
+  ],
+  "SelectedNode": "\\config\\default.json",
+  "PreviewInSolutionExplorer": false
+}

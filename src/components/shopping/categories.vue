@@ -7,7 +7,7 @@
     </el-breadcrumb>
 
     <el-card class="box-card">
-      <el-button>获取</el-button>
+      <!-- <el-button>获取</el-button> -->
       <el-button type="danger" icon="el-icon-share" size="mini" @click="dialogaddOneCatM()">新增一级类</el-button>
       <el-table
         :data="tableData"
@@ -147,7 +147,7 @@ export default {
       if (res.meta.status != 200) {
         return this.$message.error("数据获取失败，请重新获取");
       } else {
-        console.log(res);
+        // console.log(res);
         this.total = res.data.total;
         this.tableData = res.data.result;
       }
