@@ -3,6 +3,7 @@
     <!-- 头部区域 -->
     <el-header>
       <div class="hh1">电商后台管理系统</div>
+      <!--  -->
       <el-button type="success" class="outbnt" @click="outbnt">退出</el-button>
     </el-header>
     <el-container>

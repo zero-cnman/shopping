@@ -24,11 +24,18 @@ Vue.use(VueRouter)
 const routes = [{
   path: '/login',
   name: 'login',
-  component: login
+  component: login,
+  meta: {
+    title: '后台管理系统',
+  }
 }, {
+
   path: '/home',
   name: 'home',
   component: home,
+  meta: {
+    title: '后台管理系统',
+  },
   children: [{
     path: '/users',
     name: 'users',
@@ -75,8 +82,15 @@ VueRouter.prototype.push = function push(location) {
 
 router.beforeEach((to, from, next) => {
   const seaaions = window.sessionStorage.getItem('token')
-  if (to.path === '/login') return next();
+  if (to.path == '/login') return [document.title = to.meta.title,
+    next()
+  ]
+
+
   if (!seaaions) return next('/login');
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
   next()
 })
 export default router

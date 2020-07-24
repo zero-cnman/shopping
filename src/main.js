@@ -23,7 +23,12 @@ axios.interceptors.request.use(config => {
 });
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
-
+// router.beforeEach((to, from, next) => {
+//   if (to.meta.title) {
+//     document.title = to.meta.title
+//   }
+//   next()
+// })
 new Vue({
   router,
   render: h => h(App)

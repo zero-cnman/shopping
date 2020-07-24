@@ -74,7 +74,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogamendRoles = false">取 消</el-button>
-        <el-button type="primary" @click="compileRoles('amendRoleform')">确 定</el-button>
+        <el-button type="primary" @click="compileRolesz('amendRoleform')">确 定</el-button>
       </div>
     </el-dialog>
 
@@ -215,7 +215,7 @@ export default {
     },
 
     /* 点击确定，提交角色编辑后的信息 */
-    compileRoles(amendRoleform) {
+    compileRolesz(amendRoleform) {
       this.$refs[amendRoleform].validate(async valid => {
         if (!valid) {
           return false;

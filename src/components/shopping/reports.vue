@@ -11,6 +11,10 @@
     </el-card>
 
     <!-- <button @click="a">132</button> -->
+    <div class="wenzia">
+      <p>啊实打实实打实dasdd asd啊实打实打算到昂是dasd asd 阿松大昂是</p>
+      <span class="wenzi">...</span>
+    </div>
   </div>
 </template>
 
@@ -112,5 +116,19 @@ export default {
   margin-top: 20px;
   min-width: 1000px;
   /* overflow: scroll; */
+}
+.wenzia {
+  position: relative;
+  height: 90px;
+  width: 100px;
+  background-color: red;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+.wenzia p {
+  margin: 0;
 }
 </style>
